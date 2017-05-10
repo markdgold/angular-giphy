@@ -1,38 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
+<html lang="en" ng-app="GiphyApp" ng-controller="Main">
+
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Giphy Search</title>
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.js"></script>
     <script src="js/app.js"></script>
-
-
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-  </head>
-  <body ng-app="GiphyApp">
+    <script type='text/javascript' src='node_modules/ng-infinite-scroll/build/ng-infinite-scroll.min.js'></script>
+</head>
+
+<body>
     <div class="container">
-      <h1 class="text-center">Welcome to Giphy Search</h1>
-
-      <form class="form-inline">
-        <div class="form-group">
-          <label for="search">Search</label>
-          <input type="text" placeholder="Search for GIFs" id="search" class="form-control">
+        <h1 class="text-center">Welcome to Giphy Search</h1>
+        <form ng-submit="search()" class="form-inline">
+            <div class="form-group">
+                <label for="search">Search</label>
+                <input ng-model="searchText" type="text" placeholder="Search for GIFs" id="search" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+        <div infinite-scroll="myPagingFunction()">
+            <div id="results" ng-repeat="gif in gifList" class="well">
+                <img src="{{gif.images.fixed_height.url}}" alt="">
+            </div>
         </div>
-        <button type="submit" class="btn btn-primary">Search</button>
-      </form>
-
-      <div id="results"></div>
     </div>
-  </body>
+</body>
+
 </html>
